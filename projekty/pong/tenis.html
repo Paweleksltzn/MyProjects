@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style> 
+	*{margin:0; padding:0;}
+	
+	body{
+	background-color:darkgrey;
+	height:100vh;
+	
+	}
+	h1{text-align:center;}
+	div{display:flex;
+	align-items:center;
+	justify-content:center;}
+	.poziomy{display:block;
+	text-align:center;
+	border:2px solid black;
+	margin-right:200px;
+	width:200px;
+	height:40px;margin-bottom:20px;font-size:30px;}
+	#div{width:1000px;position:relative;margin-left:25%}
+	canvas{border:3px solid #fff;}
+	#punktacja{font-size:36px;}
+	#zakonczenie{
+	background-color:black;
+	color:white;
+	z-index:2;
+	}
+	#trudny{background-color:red;}
+	#sredni{background-color:orange;}
+	#latwy{background-color:green;}
+	#trudny:hover{background-color:pink;}
+	#sredni:hover{background-color:yellow;}
+	#latwy:hover{background-color:lightgreen;}
+	.poziomy:hover{
+	cursor:pointer;
+	
+	}
+    </style>
+</head>
+
+<body>
+<div id="title"><h1>First To Ten</h1></div>
+<div id="punktacja">Select Level Dificulty</div>
+	</br>
+	<div id="div">
+	<div class="poziomy" id="latwy" onclick="setLevelEasy()" ><h3>ŁATWY</h3></div></br>
+	<div class="poziomy" id="sredni"onclick="setLevelMedium()"><h3>ŚREDNI</h3></div></br>
+	<div class="poziomy"id="trudny"onclick="setLevelHard()"><h3>TRUDNY</h3></div></br>
+	</div>
+	<div>
+    <canvas ></canvas>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+	//--------------------------zmienne
+        const canvas = document.querySelector('canvas');
+		const canvas1 = $('canvas');
+        const ctx = canvas.getContext('2d');
+		canvas.width=1000;
+		canvas.height=500;
+		const cw=canvas.width;
+		const ch=canvas.height;
+		const ballsize=20;
+		let ballX=cw/2-ballsize/2;
+		let ballY=ch/2-ballsize/2;
+		const paddleHeight=100;
+		const paddleWidth=10;
+		const playerX=70;
+		const aiX=910;
+		let playerY=200;
+		let aiY=200;
+		
+		const lineWidth =6;
+		const lineHeight=16;
+		let punktyAi=0;
+		let punktyPlayer=0;
+		let ballSpeedX=3;
+		let ballSpeedY=1;
+		let level;
+		
+		
+		
+		
+		let topCanvas=canvas1.offset().top-60;
+		//funkcje--------------------
+		function playerPosition(e){
+		if(playerY<ch-paddleHeight || e.pageY<ch ){
+		playerY=e.pageY-topCanvas;
+		//aiY=playerY;
+		}
+		}
+		function aiPosition(){
+		var middlePaddle =aiY+paddleHeight/2;
+		var middleBall= ballY+ballsize /2;
+		if(ballX>500 &&aiY<=ch){
+			if(middlePaddle-middleBall>200){
+			aiY-=poziom+2;
+			}
+			else if(middlePaddle-middleBall>50){
+			aiY-=poziom*2;
+			}
+			if(middlePaddle-middleBall<-200){
+			aiY+=poziom+2;
+			}
+			else if(middlePaddle-middleBall<-50){
+			aiY+=poziom*2;
+			}
+		}
+		else if(ballX<=500 && ballX>150&&aiY<=ch){
+		 if(middlePaddle-middleBall>100)
+		 aiY-=poziom;
+		 else if(middlePaddle-middleBall<-100)
+		 aiY+=poziom;
+		}
+		}
+		
+		function ballReflection(){
+			if(((ballX>=playerX && ballX<=playerX+paddleWidth)&&(ballY>=playerY && ballY<=playerY+paddleHeight)) ||
+			((ballX<=aiX && ballX>=aiX-paddleWidth)&&(ballY>=aiY && ballY<=aiY+paddleHeight)))  {
+			//console.log("odbicie 1");
+				if(ballSpeedX<0){
+					
+					ballSpeedX*=-1;
+					if( ballSpeedX<= 15){
+					ballSpeedX++;
+					}
+				}
+				else if(ballSpeedX>0){
+					ballSpeedX*=-1;
+					if( ballSpeedX>=- 15){
+					ballSpeedX--;
+					}
+					
+				}
+			
+			
+			//console.log("odbicie 2");
+				if(ballSpeedY<0){
+					ballSpeedY*=-1;
+					if( ballSpeedY<=15){
+					ballSpeedY++;
+					}
+				}
+				else if(ballSpeedY>0){
+					ballSpeedY*=-1;
+					if( ballSpeedY>= -15){
+					ballSpeedY--;
+					}
+				}
+			
+			}
+		}
+		
+		function player(){
+			ctx.fillStyle='#7fff00';
+			ctx.fillRect(playerX,playerY,paddleWidth,paddleHeight);
+			}
+			function ai(){
+			ctx.fillStyle='yellow';
+			ctx.fillRect(aiX,aiY,paddleWidth,paddleHeight);
+			}
+			function pointPlayer(){
+			ballX=cw/2-ballsize/2;
+			ballY=ch/2-ballsize/2;
+			ballSpeedY=1;
+			ballSpeedX=3;
+			punktyPlayer++;
+			document.getElementById("punktacja").textContent="Player: "+punktyPlayer +" | Computer: "+punktyAi ;
+			}
+			function pointAi(){
+			ballX=cw/2-ballsize/2;
+			ballY=ch/2-ballsize/2;
+			ballSpeedY=-1;
+			ballSpeedX=-3;
+			punktyAi++;
+			document.getElementById("punktacja").textContent="Player: "+punktyPlayer +" | Computer: "+punktyAi;
+			}
+		function ball(){
+			ctx.fillStyle='#fff';
+			ctx.fillRect(ballX,ballY,ballsize,ballsize);
+			ballX+=ballSpeedX;
+			ballY+=ballSpeedY;
+			
+			if(ballY<=0 || ballY>=ch-ballsize){
+			ballSpeedY*=-1;
+			if(ballSpeedY>0 && ballSpeedY<=15)
+			ballSpeedY++;
+			else if(ballSpeedY<0 && ballSpeedY>= -15)
+			ballSpeedY--;
+			}
+			if(ballX+ballsize>=cw){
+			setTimeout(pointPlayer,0);
+			}
+			if(ballX<=0){
+			setTimeout(pointAi,0);
+			}
+			/*ballSpeedX*=-1;
+			if(ballSpeedX>0 && ballSpeedX<=15)
+			ballSpeedX++;
+			else if(ballSpeedX<0 && ballSpeedX>= -15)
+			ballSpeedX--;*/
+			
+			}
+			
+		function table(){
+			ctx.fillStyle ='black';
+			ctx.fillRect(0,0,cw,ch);
+			for(let i=20;i<ch;i+=30){
+				ctx.fillStyle="#ccc";
+				ctx.fillRect(cw/2,i,lineWidth,lineHeight);
+				}
+			
+			ball();
+			ballReflection();
+			player();
+			ai();
+			aiPosition();
+			if(punktyPlayer>=10) {
+			document.getElementById("punktacja").textContent="You won, congrats game starts again in 15 seconds" ;
+			 setTimeout(window.location.reload.bind(window.location),15000);
+			clearInterval(Interval);
+			}
+			if(punktyAi>=10){
+				document.getElementById("punktacja").textContent="You lose, try again game starts again in 15 seconds" ;
+				setTimeout(window.location.reload.bind(window.location),15000);
+				clearInterval(Interval);
+			}
+			}
+			
+		var Interval;
+		function setLevelEasy()
+		{
+		Interval = setInterval(table,16);
+		canvas.addEventListener("mousemove",playerPosition);
+		poziom=12;
+		document.getElementById("punktacja").textContent="Player: 0 | Computer: 0" ;
+		document.getElementById("div").style="display:none;"
+		}
+		function setLevelMedium()
+		{
+		 Interval =setInterval(table,16);
+		canvas.addEventListener("mousemove",playerPosition);
+		
+		poziom=20;
+		document.getElementById("div").style="display:none;";
+		}
+		
+		function setLevelHard()
+		{
+		 Interval = setInterval(table,16);
+		canvas.addEventListener("mousemove",playerPosition);
+		poziom=30;
+		document.getElementById("punktacja").textContent="Player: 0 | Computer: 0" ;
+		document.getElementById("div").style="display:none;"
+		}
+		window.onload =poczatek;
+		function poczatek(){
+		table();
+		}
+		
+    </script>
+</body>
+</html>
