@@ -1,0 +1,1 @@
+Witam, jak ju¿ pisa³em w mailu nie aplikujê na sta¿. Zrobi³em zadanie dla zabawy, chocia¿ niestety nie poradzi³em sobie z IndexedDB. Zapraszam do oceny kodu i licze na potê¿ny feedback. Aplikacja dostêpna na stronie http://pawelantolak.pl/clicker.html
