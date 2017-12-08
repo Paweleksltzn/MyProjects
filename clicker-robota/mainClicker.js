@@ -146,6 +146,7 @@ function mineFunction (){
 
   setInterval(function(){
     cookiesBakery.cookieAmount+=cookiesBakery.cookieProduction;
+     cookiesBakery.cookieAmount=Math.round(cookiesBakery.cookieAmount);
     document.getElementById('cookieAmount').textContent=cookiesBakery.cookieAmount;
     document.querySelector('.neededCookies1').textContent=Math.round(cookiesBakery.cookieAmount-cookiesBakery.grandmumPrize);
     document.querySelector('.neededCookies2').textContent=Math.round(cookiesBakery.cookieAmount-cookiesBakery.cursorPrize);
