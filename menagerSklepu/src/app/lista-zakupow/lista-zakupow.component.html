@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-1"></div>
+<div class="col-md-10">
+    
+    <h1 class="centrum" *ngIf="zakupy.length>0">Twoja lista zakupow</h1>
+    <h1 class="centrum" *ngIf="zakupy.length<=0">Twoja lista zakupow jest pusta</h1>
+  <ul class="list-group">
+    <li class="list-group-item " *ngFor="let zakup of zakupy; let myIndex=index;" style="margin-bottom:20px;">
+      <h4 class="centrum">{{zakup.nazwa}}</h4><hr>
+     <span> Waga: {{zakup.waga}}</span> <span style="margin-left:33%;"> Cena: {{zakup.cena}}</span> <span style="margin-left:33%;">Ilość: {{zakup.ilosc}}</span><hr>
+      <p >Kategoria: {{zakup.kategoria}}</p><hr>
+      <p *ngIf="zakup.opis">Opis: {{zakup.opis}}</p>
+      <div class="button-group centrum">
+        <button class="btn btn-success" (click)="dokladam(zakup,myIndex)" [disabled]="!dokladanieActive[myIndex]">{{dokladanieActive[myIndex]?'Dołoż jeden':'Brak Towaru'}}</button>
+        <button class="btn btn-danger" (click)="odkladam(zakup,myIndex)" [disabled]="!odladanieActive[myIndex]">Odłoż jeden </button>
+        <button class="btn btn-primary active" (click)="zakupUsuniety(zakup,myIndex)">Usuń z listy </button>
+      </div>
+    </li>
+  </ul>
+  <div class="button-group centrum" *ngIf="zakupy.length>0">
+    <button class="btn btn-warning" (click)="reset()">Resetuj listę zakupow </button>
+    <button class="btn btn-success" (click)="podsumowanie()">Przejdź do podsumowania </button>
+  </div>
+
+</div>
+</div>

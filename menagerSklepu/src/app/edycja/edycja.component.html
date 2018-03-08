@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-2"></div>
+<div class="col-md-8 ">
+  <h1 style="text-align:center;">Edytuj Przedmiot </h1>
+  <form (ngSubmit)="onSubmit()" #form="ngForm">
+    <div class="control-group">
+        <label for="nazwa">Nazwa</label>
+        <input id="nazwa" type="text" name="nazwa"class="form-control" [(ngModel)]="nazwaa" required #nazwa="ngModel">
+        <p *ngIf="!nazwa.valid && nazwa.touched">Wpisz nazwę produktu</p>
+    </div>
+    <div class="control-group">
+        <label for="cena">Cena (PLN)</label>
+        <input id="cena" type="number" name="cena"class="form-control" min="1" [ngClass]="{'ujemnaWartosc':cena.value<0}" [(ngModel)]='cenaa' required #cena="ngModel"> 
+        <p *ngIf="!cena.valid && cena.touched">Wpisz cenę produktu</p>
+        <p *ngIf="cena.value<0">Podaj dodatnia wartosc</p>
+    </div>
+    <div class="control-group">
+        <label for="waga">Waga (w gramach)</label>
+        <input id="waga" type="number" name="waga" class="form-control" min="1" [ngClass]="{'ujemnaWartosc':waga.value<0}" [(ngModel)]="wagaa" required #waga="ngModel">
+        <p *ngIf="!waga.valid && waga.touched">Wpisz wagę produktu</p>
+        <p *ngIf="waga.value<0">Podaj dodatnia wartosc</p>
+    </div>
+    <div class="control-group">
+        <label for="ilosc">Ilość</label>
+        <input id="ilosc" type="number" name="ilosc" min="1" class="form-control" [ngClass]="{'ujemnaWartosc':ilosc.value<0}"  [(ngModel)]="iloscc" required #ilosc="ngModel">
+        <p *ngIf="!ilosc.valid && ilosc.touched">Wpisz ilość produktu</p>
+        <p *ngIf="ilosc.value<0">Podaj dodatnia wartosc</p>
+    </div>
+    <label for="kategoria">Kategoria</label>
+    <select class="form-control" [(ngModel)]="kategoriaa" name="kategoria" id="kategoria">
+        <option value="nabiał">Nabiał</option>
+        <option value="owoce">Owoce</option>
+        <option value="warzywa">Warzywa</option>
+        <option value="mięso">Mięso</option>
+        <option value="napoj">Napoj</option>
+        <option value="uzytkowe">Przedmioty użytkowe</option>
+        <option value="elektroniczne">Elektronika</option>
+        <option value="inne">Inne</option>
+    </select>
+        <label for="opis">Opis</label>
+        <textarea id="opis"  class="form-control" rows="4" name="opis" [(ngModel)]="opiss"></textarea>
+        <p *ngIf="!form.valid && form.touched">Uzupełnij formularz, aby edytowac produkt</p>
+    <button type="submit" class="btn btn-primary submit" [disabled]='!form.valid||cena.value<0||ilosc.value<0||waga.value<0'>Zapisz</button>
+  </form>
+</div>
+</div>

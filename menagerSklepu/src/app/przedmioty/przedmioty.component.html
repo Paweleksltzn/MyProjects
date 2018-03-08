@@ -1,0 +1,39 @@
+<div class="row"> <h1 >Twoja lista przedmiotow</h1></div>
+<div class="row" >
+   <div class="col-md-8" *ngIf="przedmioty.length>0;">
+      <label for="kategoria">Wybierz Kategoria</label>
+    <select class="form-control"  #kategoria name="kategoria" id="kategoria" >
+      <option value="wszystko" (click)="kategoriaWybrana('wszystko')">Wszystko</option>
+      <option value="nabiał" (click)="kategoriaWybrana('nabiał')">Nabiał</option>
+      <option value="owoce" (click)="kategoriaWybrana('owoce')">Owoce</option>
+      <option value="warzywa" (click)="kategoriaWybrana('warzywa')">Warzywa</option>
+      <option value="mięso" (click)="kategoriaWybrana('mięso')">Mięso</option>
+      <option value="napoj" (click)="kategoriaWybrana('napoj')">Napoj</option>
+      <option value="uzytkowe" (click)="kategoriaWybrana('uzytkowe')">Przedmioty użytkowe</option>
+      <option value="elektroniczne" (click)="kategoriaWybrana('elektroniczne')">Elektronika</option>
+      <option value="inne" (click)="kategoriaWybrana('inne')">Inne</option>
+  </select>
+  <label for="wyszukaj">Wyszukaj produkt</label>
+  <input type="text" class="form-control" id="wyszukaj" placeholder="wyszukaj.." #wyszukaj (keyup)="przeszukuje(wyszukaj.value)">
+  <h3>Lista Produktow</h3>
+    <ul class="list-group" style="list-style-type:none;">
+      <li *ngFor="let przedmiot of przedmioty;let i=index;" (click)="szczegolyPrzedmiotu(przedmiot,i)" class=" list-group-item-action" style="cursor:pointer;margin-bottom:20px;"><a  *ngIf="przedmiot.widocznosc"  class=" list-group-item-action list-group-item" >
+        NAZWA: {{przedmiot.nazwa}}
+       <hr>
+       KATEGORIA: {{przedmiot.kategoria}}
+       <hr>
+       ILOSC: {{przedmiot.ilosc}}
+       <hr>
+       <span *ngIf="przedmiot.opis"><p>OPIS: {{przedmiot.opis}}</p>
+       <hr></span>
+       <p>Wybierz aby ujrzeć szczegoły</p>
+      </a></li>
+    </ul>
+    
+  </div>
+  <router-outlet></router-outlet>
+    <h3 *ngIf="przedmioty.length===0;">Dodaj jakiś przedmiot</h3>
+    <h3 *ngIf="!wybranyPrzedmiot &&przedmioty.length>0">Wybierz jakis przedmiot</h3>
+    
+  </div>
+

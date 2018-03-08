@@ -1,0 +1,34 @@
+<div class="col-md-12">
+  <h3 style="text-align:center;">{{przedmiot.nazwa}}</h3>
+  <ul>
+    <li class="list-group-item list-group-item-action">
+     <p>NAZWA: {{przedmiot.nazwa}}</p>
+    </li>
+    <li class="list-group-item list-group-item-action">
+      <p>CENA: {{przedmiot.cena}} PLN</p>
+    </li>
+    <li class="list-group-item list-group-item-action">
+      <p>WAGA: {{przedmiot.waga}} gram</p>
+    </li>
+    <li class="list-group-item list-group-item-action">
+     <p>ILOSC: {{przedmiot.ilosc}} sztuk</p>
+    </li>
+    <li class="list-group-item list-group-item-action">
+     <p>Kategoria: {{przedmiot.kategoria}}</p>
+    </li>
+  </ul>
+  <div class="btn-group centrum">
+<button class="btn btn-success " (click)="dodaj()">Dodaj Jeden</button>
+<button class="btn btn-danger" (click)="odejmij()" [disabled]='warunek'>Usuń Jeden</button>
+</div>
+<div class="dropdown">
+  <button type="button" class="btn btn-primary dropdown-toggle centrum" data-toggle="dropdown">
+    Opcje <span class="carrot"></span>
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item pointer" (click)="edycja(przedmiot)">Edytuj Produkt</a>
+    <a class="dropdown-item pointer" (click)='usunieto()'>Usun Produkt</a>
+    <a class="dropdown-item pointer" (click)="doZakupkow(przedmiot)" #doZakupow>Wrzuć 1 do  listy zakupow</a>
+  </div>
+</div> 
+</div>

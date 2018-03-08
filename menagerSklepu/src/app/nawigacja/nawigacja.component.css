@@ -1,0 +1,7 @@
+.navItems{
+cursor:pointer;
+border-right:1px dotted lightgrey;
+}
+ul.lastItem{
+    cursor:pointer;
+}

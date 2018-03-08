@@ -1,0 +1,16 @@
+.submit{
+    margin-left:auto;
+    margin-right:auto;
+    display:block;
+    position:relative;
+    margin-top:30px;
+}
+input.ng-valid.ng-touched{
+    border:1px solid green;
+}
+input.ng-invalid.ng-touched{
+    border:1px solid red;
+}
+input.ng-touched.ng-valid.ujemnaWartosc{
+    border-color:red;
+}
