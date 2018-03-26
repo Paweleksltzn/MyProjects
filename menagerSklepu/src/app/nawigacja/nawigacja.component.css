@@ -5,3 +5,7 @@ border-right:1px dotted lightgrey;
 ul.lastItem{
     cursor:pointer;
 }
+ul li a:hover{
+    background-color:lightblue;
+    color:black;
+}

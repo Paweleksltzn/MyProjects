@@ -27,4 +27,7 @@ export class SklepSerwisService implements CanActivate{
       return false;
     }
   }
+  setPrzedmioty(przedmioty){
+    this.przedmioty=przedmioty;
+  }
 }

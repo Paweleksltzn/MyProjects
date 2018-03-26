@@ -17,7 +17,7 @@
   <input type="text" class="form-control" id="wyszukaj" placeholder="wyszukaj.." #wyszukaj (keyup)="przeszukuje(wyszukaj.value)">
   <h3>Lista Produktow</h3>
     <ul class="list-group" style="list-style-type:none;">
-      <li *ngFor="let przedmiot of przedmioty;let i=index;" (click)="szczegolyPrzedmiotu(przedmiot,i)" class=" list-group-item-action" style="cursor:pointer;margin-bottom:20px;"><a  *ngIf="przedmiot.widocznosc"  class=" list-group-item-action list-group-item" >
+      <li *ngFor="let przedmiot of przedmioty | sortowanie:'nazwa':czySortowac;let i=index;" (click)="szczegolyPrzedmiotu(przedmiot,i)" class=" list-group-item-action" style="cursor:pointer;margin-bottom:20px;"><a  *ngIf="przedmiot.widocznosc"  class=" list-group-item-action list-group-item" >
         NAZWA: {{przedmiot.nazwa}}
        <hr>
        KATEGORIA: {{przedmiot.kategoria}}

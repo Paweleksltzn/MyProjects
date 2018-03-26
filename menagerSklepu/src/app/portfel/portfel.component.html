@@ -1,0 +1,22 @@
+
+<div class="row marginesik" style="text-align:center;">
+  <div class="col-md-12">
+  <h1>Saldo twojego Konta wynosi: {{kwota}} PLN</h1>
+</div>
+</div>
+<div class="row marginesik">
+    <div class="col-md-12 dolnyMargin" >
+      <h5 style="text-align: center">Podaj Kwote, aby moc edytować portfel</h5>
+      <input type="number" class="centrum" id="ile" name="ile" min="0" (keyup)="zmianaWartosci(wartosc.value)" #wartosc>
+      <p *ngIf="wartosc.value<0" style="color:red;text-align:center;">Wartosc musi byc większa od zera</p>
+      </div>
+  <div class="col-md-4">
+    <button class="centrum btn btn-danger" [disabled]="!validator || roznica" (click)="odejmuje(wartosc.value)">Wypłać</button>
+  </div>
+  <div class="col-md-4">
+      <button class="centrum btn btn-success" [disabled]="!validator" (click)="dodaje(wartosc.value)">Wpłać</button>
+    </div>
+    <div class="col-md-4">
+        <button class="centrum btn btn-warning" (click)="resetuje()">Resetuj Portfel</button>
+      </div>
+</div>

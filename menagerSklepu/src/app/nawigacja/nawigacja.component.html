@@ -1,10 +1,24 @@
-
+<div class="row">
+<div class="col-md-12">
     <nav class="navbar bg-dark navbar-dark navbar-expand-sm">
       <ul class="navbar-nav">
-        <li class="nav-item" (click)="wracamDoListy()"><a class="nav-link navItems" routerLink="/listaPrzedmiotow" routerLinkActive="active" >Przedmioty</a></li>
-        <li class="nav-item"><a class="nav-link navItems" routerLink="/kreatorPrzedmiotow" routerLinkActive="active">Dodaj Przedmiot</a></li>
-        <li class="nav-item"><a class="nav-link lastItem" routerLink="/listaZakupow" routerLinkActive="active">Mój Koszyk</a></li>
+        <li class="nav-item" (click)="wracamDoListy()" *ngIf="logged"><a class="nav-link navItems" routerLink="/listaPrzedmiotow" routerLinkActive="active" >Przedmioty</a></li>
+        <li class="nav-item"><a class="nav-link navItems" *ngIf="logged" routerLink="/kreatorPrzedmiotow" routerLinkActive="active">Dodaj Przedmiot</a></li>
+        <li class="nav-item"><a class="nav-link navItems" *ngIf="logged" routerLink="/listaZakupow" routerLinkActive="active">Mój Koszyk</a></li>
+        <li class="nav-item"><a class="nav-link navItems" *ngIf="logged" routerLink="/portfel" routerLinkActive="active">Portfel</a></li>
+        <div class="dropdown" *ngIf="logged">  
+        <button class=" dropdown-toggle btn btn-default" type="button" data-toggle="dropdown" *ngIf="logged" style="margin-left:0.5vw;">Zarządzanie</button>
+          <span class="caret"></span>
+          <ul class="dropdown-menu">
+              <li class="nav-item"><a class="nav-link navItems dropdownMenu" (click)="saveData()" style="cursor:pointer; color:black;" *ngIf="logged">Zapisz</a></li>
+              <li class="nav-item"><a class="nav-link navItems" (click)="wczytajDane()" style="cursor:pointer;color:black;" *ngIf="logged"> Wczytaj</a></li>
+              <li class="nav-item"><a class="nav-link"  *ngIf="logged" (click)="logOut()" style="cursor:pointer; right:10px;color:black;">Wyloguj</a></li>
+            </ul>
+        </div> 
+  
+        <li class="nav-item active"><a class="nav-link lastItem" *ngIf="logging" (click)="goHome()" style="cursor:pointer;">Powrot</a></li>
+
       </ul>
     </nav>
-
-
+  </div>
+</div>

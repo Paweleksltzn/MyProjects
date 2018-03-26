@@ -3,6 +3,7 @@ import { WzorPrzedmiotu } from '../interfejsy/wzor-przedmiotu';
 import { SklepSerwisService } from '../sklep-serwis.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { LogowanieRejestracjaService } from '../logowanie-rejestracja.service';
 
 @Component({
   selector: 'app-przedmioty',
@@ -12,16 +13,18 @@ import { Subscription } from 'rxjs/Subscription';
 export class PrzedmiotyComponent implements OnInit,OnDestroy {
   przedmioty:Array<WzorPrzedmiotu>;
   wybranyPrzedmiot=false;
+  czySortowac:boolean;
   wracamUnsubscribe:Subscription;
   usunieto:Subscription;
   @ViewChild('wyszukaj')wybor;
   @ViewChild('kategoria')kategoria;
-  constructor(private SklepService:SklepSerwisService,private Router:Router) { }
+  constructor(private SklepService:SklepSerwisService,private Router:Router,private kontrola :LogowanieRejestracjaService) { }
   szczegolyPrzedmiotu(przedmiot,i){
     this.wybranyPrzedmiot=true;
     this.Router.navigate(['listaPrzedmiotow','szczegolyPrzedmiotu',i]);
   }
   ngOnInit() {
+    this.czySortowac=false;
     this.przedmioty = this.SklepService.zlapPrzedmioty();
     this.wybranyPrzedmiot=false;
     this.wracamUnsubscribe=this.SklepService.wracam.subscribe(data=>{
@@ -34,6 +37,12 @@ export class PrzedmiotyComponent implements OnInit,OnDestroy {
     for(let przedmiot of this.przedmioty){
       przedmiot.widocznosc=true;
     }
+    this.kontrola.wczytanePrzedmioty.subscribe(przedmioty=>{
+      for(let przedmiot of przedmioty){
+        przedmiot.widocznosc=true;
+      }
+      this.przedmioty=przedmioty;
+    })
   }
   ngOnDestroy(){
     this.wracamUnsubscribe.unsubscribe();
@@ -70,5 +79,4 @@ export class PrzedmiotyComponent implements OnInit,OnDestroy {
       }
      }
     }
-
 }

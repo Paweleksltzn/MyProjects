@@ -1,0 +1,20 @@
+<div class="col-md-10 offset-md-2">
+  <h1 style="text-align:center;">{{tryb==="rejestracja"?"Rejestracja":"Logowanie"}}</h1>
+  <form (ngSubmit)="authentication(tryb)" #autentykacja="ngForm" >
+    <div class="form-group">
+    <label for="email" >Email</label>
+    <input type="email" class="form-control" required email ngModel name="email">
+  </div>
+    <div class="form-group">
+      <label for="password">Hasło (minimum 8 znakow)</label>
+     <input type="password" class="form-control" required minlength="8" ngModel name="password">
+  </div>
+  <p *ngIf="blad=='haslo'" style="color:red;text-align:center;">Nieprawidlowa nazwa konta lub hasła!</p>
+  <p *ngIf="blad=='email'" style="color:red;text-align:center;">Podany email jest juz zarejestrowany!</p>
+  <button class="btn btn-success"  [disabled]="!autentykacja.valid" type="submit" style="margin:0 auto; display:block;" >{{tryb==="rejestracja"?"Zarejestruj":"Zaloguj"}}
+    
+  </button>
+
+  </form>
+
+</div>
